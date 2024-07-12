@@ -24,7 +24,7 @@ func main() {
 	var filePath string
 	if err != nil {
 		fmt.Println(err)
-		filePath = fmt.Sprintf("%s/daily_%d-%d-%d.md", user.HomeDir, curTime.Year(), curTime.Month(), curTime.Day())
+		filePath = fmt.Sprintf("%s/daily_%s.md", user.HomeDir, curTime.Format("2000-12-30"))
 	} else {
 		fileBytes, err := io.ReadAll(configFile)
 		if err != nil {
@@ -32,7 +32,7 @@ func main() {
 		}
 		var config Config
 		json.Unmarshal(fileBytes, &config)
-		filePath = fmt.Sprintf("%s/%s/daily_%d-%d-%d.md", user.HomeDir, config.DailiesPaths, curTime.Year(), curTime.Month(), curTime.Day())
+		filePath = fmt.Sprintf("%s/%s/daily_%s.md", user.HomeDir, config.DailiesPaths, curTime.Format("2000-12-30"))
 	}
 	cmd := exec.Command("nvim", filePath)
 	cmd.Stdin = os.Stdin
